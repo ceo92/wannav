@@ -17,7 +17,7 @@ import java.util.Set;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(exclude = {"foods", "businessDays", "reviews", "likes"})
+@ToString(exclude = {"foods", "businessDays", "reviews", "likes", "seats"})
 public class Restaurant {
 
   @Id
@@ -59,9 +59,8 @@ public class Restaurant {
   private String description; //설명
 
   @OneToMany(mappedBy = "restaurant")
+  @JsonIgnore
   private List<Seat> seats = new ArrayList<>();
-
-
 
   @Column(name = "created_at")
   @DateTimeFormat(pattern = "yyyy-mm-dd")
@@ -71,15 +70,11 @@ public class Restaurant {
   @DateTimeFormat(pattern = "yyyy-mm-dd")
   private LocalDate updatedAt; //수정일
 
-
   @Column(name = "reservation_time_gap")
-  private int reservationTimeGap;
+  private Integer reservationTimeGap;
 
   @Column(name = "is_penalty")
   private Boolean isPenalty;
-
-//  private Point point;
-
 
   @Enumerated(EnumType.STRING)
   @Column(name = "business_status")
@@ -87,7 +82,6 @@ public class Restaurant {
 
   @Column(name = "can_park")
   private Boolean canPark; //주차 가능 여부
-
 
   @OneToMany(mappedBy = "restaurant")
   @JsonIgnore

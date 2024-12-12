@@ -58,7 +58,6 @@ public class ReviewController {
 
         //목록에 없는 식당 처리 불가
         if (restaurant == null) {
-            log.info("목록에 없는 식당: {}", storeInfo.getName().getText());
             model.addAttribute("alertMessage", "목록에 없는 식당입니다.");
             return "review/receipt";
         }
@@ -94,7 +93,7 @@ public class ReviewController {
             model.addAttribute("tagsAll", tagService.findTagsForReview());
             return "review/review-write";
         }
-        reviewService.saveReview(jwtUtil.getUserId(), reviewSaveDTO, reviewSaveDTO.getRestaurant(), reviewSaveDTO.getVisitDate());
+        reviewService.saveReview(28L, reviewSaveDTO, reviewSaveDTO.getRestaurant(), reviewSaveDTO.getVisitDate());
         redirectAttributes.addFlashAttribute("alertMessage", "작성 완료되었습니다.");
         return "redirect:/reviews";
     }
@@ -144,10 +143,8 @@ public class ReviewController {
     }
 
     private static void printErrorLog(BindingResult result) {
-        log.info("{}", "*".repeat(20));
         for (FieldError fieldError : result.getFieldErrors()) {
             log.error("{}: {}", fieldError.getField(), fieldError.getDefaultMessage());
         }
-        log.info("{}", "*".repeat(20));
     }
 }

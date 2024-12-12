@@ -51,27 +51,29 @@ public class SecurityConfig {
         });
 
         httpSecurity.authorizeRequests(authorize -> authorize
-                .requestMatchers(
-                        "/reservation/**",
-                        "/reservations/**",
-                        "/likes",
-                        "/orders/**",
-                        "/points",
-                        "/coupons",
-                        "/reviews/**",
-                        "/carts",
-                        "/api/**",
-                        "/checkout/**",
-                        "/my/**",
-                        "/payment/**").authenticated()
-                .anyRequest().permitAll()
+            .requestMatchers(
+                "/api/v1/chatbot").permitAll() // 이 경로는 인증 없이 접근 가능
+            .requestMatchers(
+                "/reservation/**",
+                "/reservations/**",
+                "/likes",
+                "/orders/**",
+                "/points",
+                "/coupons",
+                "/reviews/**",
+                "/carts",
+                "/api/**",
+                "/checkout/**",
+                "/my/**",
+                "/payment/**").authenticated() // 이 경로들은 인증 필요
+            .anyRequest().permitAll() // 나머지는 모두 허용
         );
 
         httpSecurity.formLogin(formLogin -> formLogin
-                .loginPage("/auth/login")
-                .permitAll()
+            .loginPage("/auth/login")
+            .permitAll()
         ).exceptionHandling(exception -> exception
-                .authenticationEntryPoint((request, response, authException) -> {
+            .authenticationEntryPoint((request, response, authException) -> {
                 response.sendRedirect("/auth/login");
             })
         );
@@ -86,9 +88,11 @@ public class SecurityConfig {
 
         corsConfiguration.setAllowedOriginPatterns(List.of("*"));
 
-        corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS"));
+        corsConfiguration.setAllowedMethods(
+            List.of("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS"));
 
-        corsConfiguration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
+        corsConfiguration.setAllowedHeaders(
+            List.of("Authorization", "Cache-Control", "Content-Type"));
 
         corsConfiguration.setAllowCredentials(true);
 

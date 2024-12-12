@@ -46,7 +46,8 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public EventCouponResponseDTO getEvent(Long eventId) {
-        Event event = eventRepository.findById(eventId).orElseThrow(() -> new IllegalArgumentException("이벤트 없음"));
+        Event event = eventRepository.findById(eventId)
+            .orElseThrow(() -> new IllegalArgumentException("이벤트 없음"));
         Coupon coupon = couponRepository.findByEventId(eventId);
         return new EventCouponResponseDTO(event, coupon);
     }
