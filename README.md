@@ -202,16 +202,16 @@
 ### 1. 도메인 주도 설계(DDD , Domain Driven Design) : setter 외부로부터 은닉
 
 #### 설명
->- setter를 public으로 외부에 노출시키게 되면, 외부에서 무분별한 변경이 일어날 수 있으므로 개발자의 의도되지 않은 변경이 일어날 수 있고, 시간이 흘러 변경에 대한 원인 추적하기가 어려워질 수 있음
+- setter를 public으로 외부에 노출시키게 되면, 외부에서 무분별한 변경이 일어날 수 있으므로 개발자의 의도되지 않은 변경이 일어날 수 있고, 시간이 흘러 변경에 대한 원인 추적하기가 어려워질 수 있음
 - 즉 변경이 필요한 메서드는 엔티티 내부에 정의하여, 해당 메서드를 통해서만 변경이 일어날 수 있도록 구현하는 게 좋음
 
 #### 예시 : Restaurant 엔티티
 ![](https://velog.velcdn.com/images/coo9292/post/f7590866-38e9-4bdd-a3bd-9fa9efe8ac8b/image.png)
->- 해당 메서드들은 ```Restaurant``` 엔티티의 일부이다. ```Restaurant``` 는 ```BusinessDay``` 및 ```Food```와 1:N 양방향 연관관계를 맺고 있으므로 양방향 연관관계를 설정해주는 작업이 필요함에 따라 **연관관계 설정 메서드 ```addBusinessDay()``` , ``` addFood()```를 엔티티 내부에 정의**하였음
+- 해당 메서드들은 ```Restaurant``` 엔티티의 일부이다. ```Restaurant``` 는 ```BusinessDay``` 및 ```Food```와 1:N 양방향 연관관계를 맺고 있으므로 양방향 연관관계를 설정해주는 작업이 필요함에 따라 **연관관계 설정 메서드 ```addBusinessDay()``` , ``` addFood()```를 엔티티 내부에 정의**하였음
 - ```addStatistics()```는 엔티티 내부에 정의한 변경 메서드로 해당 메서드를 통해서만 ```averageRating``` , ```likesCount``` , ```reviewCount```값의 변경이 일어날 수 있음
 
 #### 의의
->- **연관관계 설정 메서드** 및 **엔티티 내부에 정의한 변경 메서드로만 변경**이 일어날 수 있음
+- **연관관계 설정 메서드** 및 **엔티티 내부에 정의한 변경 메서드로만 변경**이 일어날 수 있음
 - 네이밍도 단순 setXxxx()가 아닌 **명확하게 어떤 이름인지 알 수 있기 때문에 변경에 대한 원인을 추적하기 쉬움** 
 - 엔티티에 정의된 필드의 변경이 엔티티 내부에서 일어나므로 **객체지향적이고 모듈 간 결합도를 낮추고 응집도를 높일 설계라고 볼 수 있음**
 - 이것은 **비즈니스 로직을 서비스 계층이 아닌 도메인에 정의한 것이므로 도메인 모델 패턴을 활용함에 따라 도메인 주도 설계라고 볼 수 있음**
@@ -288,7 +288,7 @@ public class Restaurant {
 ## ★ Trouble Shooting : @ElementCollection , @CollectionTable의 문제
 ### 1. 개요 : @ElementCollection , @CollectionTable의 도입
 ![](https://velog.velcdn.com/images/coo9292/post/ac5b8c15-d9f9-47fe-99a5-28c65017d0a5/image.png)
->- 식당 검색 시 많은 체크박스 필터링 조건들이 존재하며 체크박스는 여러 개의 데이터가 식당 테이블에 할당해야하므로 식당이 1이고 체크박스가 N인 1:N 관계의 별도의 테이블을 생성해줘야하는데, **JPA에서 1:N 관계의 테이블을 생성하는 데에는 두 가지 방법이 존재함**
+- 식당 검색 시 많은 체크박스 필터링 조건들이 존재하며 체크박스는 여러 개의 데이터가 식당 테이블에 할당해야하므로 식당이 1이고 체크박스가 N인 1:N 관계의 별도의 테이블을 생성해줘야하는데, **JPA에서 1:N 관계의 테이블을 생성하는 데에는 두 가지 방법이 존재함**
 - 첫번째 방법 : ```@Entity```로 엔티티를 별도로 생성 후 ```@OneToMany```로 1:N 연관관계 맺어주기
 - 두번째 방법 : ```@ElementCollection , @CollectionTable```
 - 일반적으로는 첫번째 패턴이 정형화되지만, **체크박스가 여러 개여서 일일이 각 체크박스에 대한 엔티티를 생성하는 옳지 않다고 생각하였고,** **현재 요구사항에선 체크박스 값이 변경되지도 않아 단순했으므로 체크박스를 엔티티로서 운영하는 것은 무겁다고 판단**
@@ -299,7 +299,7 @@ public class Restaurant {
 
 
 ### ※ @ElementCollection , @CollectionTable이란?
->- ```@ElementCollection``` : 컬렉션 필드를 DB에 매핑해주는 어노테이션, 이때 한 테이블에서는 컬렉션을 관리 못하므로 별도의 컬렉션용 테이블로 매핑해줌
+- ```@ElementCollection``` : 컬렉션 필드를 DB에 매핑해주는 어노테이션, 이때 한 테이블에서는 컬렉션을 관리 못하므로 별도의 컬렉션용 테이블로 매핑해줌
 - ```@CollectionTable``` : 별도의 컬렉션용 테이블의 테이블명 및 조인 칼럼명 등을 지정할 수 있는 어노테이션
 - 즉 ```@ElementCollection``` , ```@CollectionTable```은 컬렉션 매핑 시 같이 쓰임
 
@@ -309,7 +309,7 @@ public class Restaurant {
 @CollectionTable(name = "CONTAIN_FOOD_TYPE" , joinColumns = @JoinColumn(name = "RESTAURANT_ID"))
 private Set<String> containFoodTypes = new HashSet<>();
 ```
->- 컬렉션 테이블은 ```@CollectionTable```에서 name 속성으로 테이블명을 설정할 수 있고, joinColumns로 외래 키명을 설정할 수 있음
+- 컬렉션 테이블은 ```@CollectionTable```에서 name 속성으로 테이블명을 설정할 수 있고, joinColumns로 외래 키명을 설정할 수 있음
 - ```RESTAURANT_ID``` : 주인 테이블의 외래 키
 - ```CONTAIN_FOOD_TYPES``` : 컬렉션에 삽입되는 값 , 이름은 ```@Column```으로 변경 가능
 - <span style="color:#FF4545">두 칼럼은 **복합 키** 형태여야하므로 값이 중복되어선 안됨
@@ -330,14 +330,14 @@ private Set<String> containFoodTypes = new HashSet<>();
 ![](https://velog.velcdn.com/images/coo9292/post/3016872b-b677-4720-8c46-9f68bda62103/image.png)
 > JPA에선 자동으로 컬렉션에 데이터들 조회해와서 할당해주지만, SQL로 직접 테스트할 경우 각 컬렉션 테이블마다 모든 조인 질의를 전부 작성해줘야했고, 일대다 조인 시, 500개 이상의 중복된 데이터가 조회되었음
 
-#### <span style="color:#FF4545">④ 변경 시 N+1 발생</span>
+#### 🔴 ④ 변경 시 N+1 발생 🔴
 ![](https://velog.velcdn.com/images/coo9292/post/240b7743-1c76-41b6-8800-abc5add1516c/image.png)
 
 > - 현재 요구사항에선 체크박스의 데이터들이 변경될 일이 없어서 괜찮았지만, **추후 리팩토링을 하거나, 실무의 경우 요구사항이 지속적으로 변경되므로 충분히 변경될 가능성이 농후함.** 
-- ```@ElementCollection``` ```@CollectionTable``` 사용 시 **컬렉션 데이터를 변경할 경우 주인 테이블의 id에 해당되는 컬렉션 테이블의 데이터들이 전부 삭제되고 처음부터 하나씩 삽입되는 N+1 문제가 발생되며**, 이는 컬렉션 테이블을 명확하게 식별하는 식별자가 없어서 발생하는 문제임
+> - ```@ElementCollection``` ```@CollectionTable``` 사용 시 **컬렉션 데이터를 변경할 경우 주인 테이블의 id에 해당되는 컬렉션 테이블의 데이터들이 전부 삭제되고 처음부터 하나씩 삽입되는 N+1 문제가 발생되며**, 이는 컬렉션 테이블을 명확하게 식별하는 식별자가 없어서 발생하는 문제임
   
   
-### <span style="color:#FF4545">3. 결론 및 내 생각</span>
+### 🔴 3. 결론 및 내 생각 🔴
 - 편하려고 시작했지만, JPA의 ```@ElementCollection``` , ```@CollectionTable``` 매핑 원칙에 따라 개발자가 직접 설정해줘야하는 부분이 많았음 , 배보다 배꼽이 더 큰 느낌
 - 또한 자바에서 테스트 시에는 JPA가 자동으로 컬렉션에 값들을 할당해주니 편리할 순 있어도 SQL로 직접 DB에서 테스트 시에는 조인을 명시해야하는 번거로움이 있었고, 중복된 데이터로 인해 쿼리 튜닝도 추가적으로 필요
 - 해당 프로젝트에선 어려움을 겪으면서도 잘 구현해냈지만, 실무 상황이라 가정하였을 때 요구사항이 바뀌어서 데이터를 변경해야한다면, 결국 N+1 문제가 필연적으로 발생함에 따라 컬렉션 필드들을 전부 제거하고, 새로 엔티티를 생성해야함
@@ -399,8 +399,8 @@ public class RestaurantRepository{
   
 }
 ```
-> - QueryDSL에서는 type-safe하게 자바 메서드만으로 질의를 작성할 수 있음
- - **또한 일일이 join()을 명시적으로 호출하지 않아도 주테이블에 대한 연관관계 테이블들의 조인이 원활하게 이루어지는 것을 알 수 있었음**
+- QueryDSL에서는 type-safe하게 자바 메서드만으로 질의를 작성할 수 있음
+- **또한 일일이 join()을 명시적으로 호출하지 않아도 주테이블에 대한 연관관계 테이블들의 조인이 원활하게 이루어지는 것을 알 수 있었음**
 
 ```java
 public List<Restaurant> findAll(){
@@ -411,8 +411,8 @@ public List<Restaurant> findAll(){
         .fetch();
   }
 ```
-> - 명시적으로 join()을 명시적으로 호출해야하는 시점은 **연관관계 테이블에 대한 QType 객체를 사용할 경우임**
-- **즉 where절 , having절에서 연관관계 테이블에 대한 조건을 직접적으로 거는 경우에 해당 **
+- 명시적으로 join()을 명시적으로 호출해야하는 시점은 **연관관계 테이블에 대한 QType 객체를 사용할 경우임**
+- **즉 where절 , having절에서 연관관계 테이블에 대한 조건을 직접적으로 거는 경우에 해당**
 - 만약 where절과 having절에서 restaurant의 연관관계인 review 혹은 food 테이블에 대한 조건을 썼는데 조인을 호출하지 않으면 QueryDSL에서는 연관관계에 대한 데이터를 찾을 수 없어 ```NullPointerException``` 발생
 
 <br>
@@ -446,17 +446,56 @@ public List<Restaurant> findAll(){
 
 <br>
 
-## ★ 회고
+## git message convention
+### 🎉 Init (Initialization)
+- **설명**: 프로젝트의 초기 설정이나 기본적인 구조 설계
+- **예시**: `🎉 Init: set up initial project structure`
+
+### ✨ Feat (Feature)
+- **설명**: 새로운 기능을 추가하는 커밋
+- **예시**:`✨ Feat: add user login functionality`
+ㅇㅇㅇㅇ
+### 🐛 Fix (Bug Fix)
+- **설명**: 버그를 수정하는 커밋
+- **예시**:`🐛 Fix: correct calculation error in tax module`
+
+### 🎨 Style
+- **설명**: 기능적 변경이 없으며, 코드의 포맷이나 스타일, 주석 등을 수정
+- **예시**:`🎨 Style: format code according to ESLint rules`
+
+### ♻️ Refactor
+- **설명**: 코드의 구조를 변경하지만 기능은 변경하지 않는 커밋
+- **예시**:`♻️ Refactor: reorganize project structure`
+
+### ✅ Test
+- **설명**: 테스트 관련 변경 (테스트 추가, 수정, 제거 등)
+- **예시**:`✅ Test: add unit tests for new user service`
+
+### 📝 Docs (Documentation)
+- **설명**: 문서화 관련 변경
+- **예시**:`📝 Docs: update README with setup instructions`
+
+### 🔒 Security
+- **설명**: 보안 관련 수정
+- **예시**:`🔒 security: fix XSS vulnerability`
+
+### 🚀 Chore
+- **설명**: 기타 잡다한 작업이나 설정 변경
+- **예시**:`🚀 chore: upgrade npm packages`
+
+<br>
+
+## 🔴 회고 🔴
   
 ### 기획 및 협업
->- 개인으로 프로젝트를 진행할 때는 체계적인 절차 없이 산출물 관리에도 소홀하여 오직 구현에만 급급하여 빨리 완성물을 내야한다는 생각에만 사로잡힌 결과, 오히려 구현하는 데 시간이 더 오래걸렸습니다.
+- 개인으로 프로젝트를 진행할 때는 체계적인 절차 없이 산출물 관리에도 소홀하여 오직 구현에만 급급하여 빨리 완성물을 내야한다는 생각에만 사로잡힌 결과, 오히려 구현하는 데 시간이 더 오래걸렸습니다.
 - 하지만 해당 팀 프로젝트에선 기획적인 부분에서의 유사 플랫폼의 벤치마킹을 하며 정책적인 부분들 또한 세밀하게 검토하여 철저하게 산출물 관리를 진행하였고, ERD를 포함한 여러 다이어그램 , Figma를 통한 UI 작업을 진행하며 한단계씩 차근차근 절차를 밟아서 구현한 결과 시간을 많이 단축시킬 수 있었습니다.
 - 하지만 아무리 탄탄하게 기획과 설계 및 산출물 관리를 열심히 한다 하더라도 실제로 구현할 때는 보이지 않던 구멍들이 있을 수밖에 없다는 것을 느꼈고, 기획과 설계적인 부분, 그리고 구현적인 부분 양극 사이에서 시간적인 분배를 잘 해야되는 것이 좋은 개발자의 소양일 것이라는 것을 느꼈습니다.
 - 또한 개인적으로 독단적으로 이행하는 성향보단 팀 프로젝트에선 귀를 열고 입도 열며 다함께 협업하는 자세를 가지려는 성향을 갖는 사람이 좋은 팀원이고, 프로젝트를 수행함에 있어서도 훨씬 원활할 것임을 느꼈습니다. 
   
 
 ### 백엔드
-> 제가 맡은 식당 도메인의 필터링 조건은 총 8가지이고, 식당 정렬 조건 및 식당 검색까지 더하면 10가지입니다. 즉 동적 쿼리를 작성해야하는데, JPA로 동적 쿼리를 작성함에 있어서 간편하고 type - safe 및 null - safe한 특성을 갖고 있는 Query DSL 오픈소스를 사용하였습니다. 하지만 처음 사용하는 것이다보니 Query DSL의 문법적인 특성을 추가적으로 공부해야했고 그에 따라 원인 모를 오류들이 속출하며 trouble - shooting을 계속한 끝에 10가지의 필터링 조건이 포함된 동적 쿼리를 완성할 수 있었고 테스트 또한 잘 수행되었습니다.
+제가 맡은 식당 도메인의 필터링 조건은 총 8가지이고, 식당 정렬 조건 및 식당 검색까지 더하면 10가지입니다. 즉 동적 쿼리를 작성해야하는데, JPA로 동적 쿼리를 작성함에 있어서 간편하고 type - safe 및 null - safe한 특성을 갖고 있는 Query DSL 오픈소스를 사용하였습니다. 하지만 처음 사용하는 것이다보니 Query DSL의 문법적인 특성을 추가적으로 공부해야했고 그에 따라 원인 모를 오류들이 속출하며 trouble - shooting을 계속한 끝에 10가지의 필터링 조건이 포함된 동적 쿼리를 완성할 수 있었고 테스트 또한 잘 수행되었습니다.
   
 ```java
 public List<Restaurant> findAll(RestaurantSearchCond restaurantSearchCond , String search){
@@ -496,67 +535,24 @@ public List<Restaurant> findAll(RestaurantSearchCond restaurantSearchCond , Stri
     return dynamicQuery.fetch();
   }
 ```
-> - 하지만 완성하고보니 그냥 JdbcTemplate, MyBatis 같은 SQL Mapper을 사용했으면 QueryDSL의 문법에 대한 추가적인 고생 없이 구현할 수 있었겠다는 생각을 하였지만, 한번 QueryDSL 지식을 습득하고 나니 SQL Mapper을 직접 사용하는 것과는 다르게 굉장히 편리하게 다른 애플리케이션의 동적 조회 쿼리를 구현할 수 있겠다는 생각을 하였습니다
+- 하지만 완성하고보니 그냥 JdbcTemplate, MyBatis 같은 SQL Mapper을 사용했으면 QueryDSL의 문법에 대한 추가적인 고생 없이 구현할 수 있었겠다는 생각을 하였지만, 한번 QueryDSL 지식을 습득하고 나니 SQL Mapper을 직접 사용하는 것과는 다르게 굉장히 편리하게 다른 애플리케이션의 동적 조회 쿼리를 구현할 수 있겠다는 생각을 하였습니다
 - 구현한 ```findAll```메서드만 호출하면 사용자가 화면에서 조작한 필터링을 바탕으로 동적으로 결과가 나오게끔 구현하였습니다. 하지만 전국에 있는 모든 비건 식당 데이터를 넣을 경우 매번 findAll을 호출하는 것은 성능 상 좋지 않다는 생각을하였고, Redis의 캐싱 기능을 이용하여 성능을 향상시키는 방법으로 리팩토링해나갈 것입니다.
 - 또한 애플리케이션 내에 카카오 지도를 이동시킬 때마다 해당현재 위치 기준 식당 추천 시스템 더해야됨 쓰자
   
 
 ### 프론트엔드
-> - 지도 API를 선택할 때 NCP를 쓰다보니 처음에는 네이버 지도 API를 사용하였습니다. 하지만 지도의 마커가 잘 찍히지 않는 문제가 발생되어 카카오 지도로 변경하였고, 커스텀 오버레이를 통해 사용자 친화적인 마커를 구현하는 데에 성공하였습니다.
+- 지도 API를 선택할 때 NCP를 쓰다보니 처음에는 네이버 지도 API를 사용하였습니다. 하지만 지도의 마커가 잘 찍히지 않는 문제가 발생되어 카카오 지도로 변경하였고, 커스텀 오버레이를 통해 사용자 친화적인 마커를 구현하는 데에 성공하였습니다.
 - 그렇게 정적인 화면은 목표한대로 잘 나왔지만, 동적인 처리가 부족하였음. 식당 조건 필터링 시 체크하는대로 즉각적으로 화면이 랜더링되었으면 좋았지만, 검색하기 버튼을 누른 후 SSR 방식으로 해당 화면이 재 랜더링되게끔 설계하였습니다.
 - 또한 모달창을 활용하지 못하여 UX를 고려하지 못하였고, 화면이 넘어가는 방식으로 처리하였는데 이들은 JS 및 React나 Vue JS같은 JS 프레임워크의 지식이 부족의 문제였던 것으로 판단하여 추가적인 js에 대한 공부의 필요성을 느꼈습니다.
 
 
 
-
 ### DB
-> - 이번 프로젝트에서 가장 시간이 많이 소요되었던 부분입니다. SQL이 취약하다보니 QueryDSL을 활용한 데이터 접근 계층의 개발에도 차질이 생겼고, 결국 전체적인 구현이 늦어졌습니다.
+- 이번 프로젝트에서 가장 시간이 많이 소요되었던 부분입니다. SQL이 취약하다보니 QueryDSL을 활용한 데이터 접근 계층의 개발에도 차질이 생겼고, 결국 전체적인 구현이 늦어졌습니다.
 - 집계함수를 쓸 경우에는 무조건 GROUP BY 절로 집계의 기준을 잡아줘야하고, 집계 함수가 포함된 조건을 쓸 경우 where 절이 아닌 having 절에 적어야 정상적으로 동작한다는 사실을 알 수 있었습니다.
 - 백엔드 개발자는 결국 SQL이 기본이여야한다는 사실을 깨달았고, SQL 공부를 위해 SQL 관련 지속적인 문제를 풀어나갈 계획입니다.
 
 
 ### 테스트
->- TDD를 진행함에 따라 JUnit 5 라이브러리를 이용하여 매 기능이 구현될 때마다 테스트를 진행하였습니다.
+- TDD를 진행함에 따라 JUnit 5 라이브러리를 이용하여 매 기능이 구현될 때마다 테스트를 진행하였습니다.
 - 테스트는 given/when/then 패턴을 통하여 일관된 형식을 갖고 진행하였기 때문에 저와 팀원들이 테스트를 수월하게 진행할 수 있었고, 선 테스트를 통해 오류를 바로잡고 후에 개발한 결과 당장은 번거롭고 시간이 길게 느껴졌지만, 결과적으로 봤을 때 개발하는 데 시간이 많이 단축됨을 느꼈습니다.
-
-
-
-
-
-
-## Git commit message convention
-### 🎉 Init (Initialization)
-- **설명**: 프로젝트의 초기 설정이나 기본적인 구조 설계
-- **예시**: `🎉 Init: set up initial project structure`
-
-### ✨ Feat (Feature)
-- **설명**: 새로운 기능을 추가하는 커밋
-- **예시**:`✨ Feat: add user login functionality`
-ㅇㅇㅇㅇ
-### 🐛 Fix (Bug Fix)
-- **설명**: 버그를 수정하는 커밋
-- **예시**:`🐛 Fix: correct calculation error in tax module`
-
-### 🎨 Style
-- **설명**: 기능적 변경이 없으며, 코드의 포맷이나 스타일, 주석 등을 수정
-- **예시**:`🎨 Style: format code according to ESLint rules`
-
-### ♻️ Refactor
-- **설명**: 코드의 구조를 변경하지만 기능은 변경하지 않는 커밋
-- **예시**:`♻️ Refactor: reorganize project structure`
-
-### ✅ Test
-- **설명**: 테스트 관련 변경 (테스트 추가, 수정, 제거 등)
-- **예시**:`✅ Test: add unit tests for new user service`
-
-### 📝 Docs (Documentation)
-- **설명**: 문서화 관련 변경
-- **예시**:`📝 Docs: update README with setup instructions`
-
-### 🔒 Security
-- **설명**: 보안 관련 수정
-- **예시**:`🔒 security: fix XSS vulnerability`
-
-### 🚀 Chore
-- **설명**: 기타 잡다한 작업이나 설정 변경
-- **예시**:`🚀 chore: upgrade npm packages`
