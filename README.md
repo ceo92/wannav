@@ -12,7 +12,7 @@
 
 ### 2. Blue Zone 분석
 ![](https://velog.velcdn.com/images/coo9292/post/d30033f0-e705-40b7-9136-3b97a16d9483/image.svg)
-건강과 직결되는 장수와 관련해서 조사한 결과 세계 5대 장수지역이라고 불리는 <span style="color:darkblue">**Blue Zone**</span>의 특징이 채식 위주의 식단을 한다는 사실을 알아냈고, 채식을 장려하기 위해 **비건 서비스**을 만들고자 다짐하였음
+건강과 직결되는 장수와 관련해서 조사한 결과 세계 5대 장수지역이라고 불리는 <span style="color:darkblue"**Blue Zone**</span의 특징이 채식 위주의 식단을 한다는 사실을 알아냈고, 채식을 장려하기 위해 **비건 서비스**을 만들고자 다짐하였음
 
 
 
@@ -272,7 +272,7 @@ public class Restaurant {
 	//생략
 }
 ```
-> Lombok 라이브러리가 제공해주는 ```@Builder```을 통해 잘못된 순서의 인자 할당 문제 순서 해결 가능
+Lombok 라이브러리가 제공해주는 ```@Builder```을 통해 잘못된 순서의 인자 할당 문제 순서 해결 가능
 
 ### <span style="color:red">한계 및 내 생각</span>
 - 빌더 패턴을 쓸 경우에는 결국 객체 생성에 대한 제어가 도메인 내부가 아닌 외부에서 이루어지므로 초기 Restaurant 엔티티를 개발한 개발자의 의도대로 객체 생성이 이루어지지 않을 수 있음, 예를 들어 Restaurant는 객체 생성 시에 여러 연관관계를 필수적으로 설정해줘야되지만, 그것이 누락될 수 있음
@@ -293,7 +293,7 @@ public class Restaurant {
 
 ![](https://velog.velcdn.com/images/coo9292/post/3e9a65c2-e968-49eb-a6d0-d364ba389fd2/image.png)
 
-> 그래서 두번째 방법인 ```@ElementCollection , @CollectionTable```을 사용하기로 결정했지만, 많은 이슈들이 있었음
+그래서 두번째 방법인 ```@ElementCollection , @CollectionTable```을 사용하기로 결정했지만, 많은 이슈들이 있었음
 
 
 ### ※ @ElementCollection , @CollectionTable이란?
@@ -316,23 +316,21 @@ private Set<String> containFoodTypes = new HashSet<>();
 ### 2. 문제
 #### ① JPA가 인식하는 테이블의 스키마와 일치하는 형식으로 매핑해줘야함, 스키마가 조금이라도 다르면 JPA가 테이블을 찾지 못하여 ```SQLGrammarException``` 발생
 <img src="https://velog.velcdn.com/images/coo9292/post/eb5efb27-5bb0-4f9c-a6ff-6b42ab021afe/image.png" style="width:30rem">
-
-> 복합 키 , 칼럼이름 및 타입 전부 일치하게 매핑해줘야됨 , 엔티티를 테이블로 매핑하는 것은 많이 해봐서 무리가 없었지만, 컬렉션 변수를 처음 테이블로 매핑하다보니 어려움이 있었음
+복합 키 , 칼럼이름 및 타입 전부 일치하게 매핑해줘야됨 , 엔티티를 테이블로 매핑하는 것은 많이 해봐서 무리가 없었지만, 컬렉션 변수를 처음 테이블로 매핑하다보니 어려움이 있었음
 
 #### ② 컬렉션 선언 시 List가 아닌 Set 선언 
 <img src="https://velog.velcdn.com/images/coo9292/post/b08f4a1f-d0eb-464f-a1ee-82796bdf4eb4/image.png" style="margin-bottom:0.1rem">
-
-> 컬렉션 타입 선언 시 주로 사용하던 ```List```가 아닌 ```Set```을 사용해야됨 , 복합 키 특성 상 컬렉션에 삽입되는 각 데이터들 간에 중복이 되면 안되므로 Set으로 선언해야됨(제네릭이 String , Integer, Double와 같은 일반타입 기준)
+컬렉션 타입 선언 시 주로 사용하던 ```List```가 아닌 ```Set```을 사용해야됨 , 복합 키 특성 상 컬렉션에 삽입되는 각 데이터들 간에 중복이 되면 안되므로 Set으로 선언해야됨(제네릭이 String , Integer, Double와 같은 일반타입 기준)
 
 #### ③ SQL 테스트 시 명시적인 조인을 해줘야하고, 중복된 데이터가 발생함
 ![](https://velog.velcdn.com/images/coo9292/post/3016872b-b677-4720-8c46-9f68bda62103/image.png)
-> JPA에선 자동으로 컬렉션에 데이터들 조회해와서 할당해주지만, SQL로 직접 테스트할 경우 각 컬렉션 테이블마다 모든 조인 질의를 전부 작성해줘야했고, 일대다 조인 시, 500개 이상의 중복된 데이터가 조회되었음
+JPA에선 자동으로 컬렉션에 데이터들 조회해와서 할당해주지만, SQL로 직접 테스트할 경우 각 컬렉션 테이블마다 모든 조인 질의를 전부 작성해줘야했고, 일대다 조인 시, 500개 이상의 중복된 데이터가 조회되었음
 
 #### 🔴 ④ 변경 시 N+1 발생 
 ![](https://velog.velcdn.com/images/coo9292/post/240b7743-1c76-41b6-8800-abc5add1516c/image.png)
 
-> - 현재 요구사항에선 체크박스의 데이터들이 변경될 일이 없어서 괜찮았지만, **추후 리팩토링을 하거나, 실무의 경우 요구사항이 지속적으로 변경되므로 충분히 변경될 가능성이 농후함.** 
-> - ```@ElementCollection``` ```@CollectionTable``` 사용 시 **컬렉션 데이터를 변경할 경우 주인 테이블의 id에 해당되는 컬렉션 테이블의 데이터들이 전부 삭제되고 처음부터 하나씩 삽입되는 N+1 문제가 발생되며**, 이는 컬렉션 테이블을 명확하게 식별하는 식별자가 없어서 발생하는 문제임
+- 현재 요구사항에선 체크박스의 데이터들이 변경될 일이 없어서 괜찮았지만, **추후 리팩토링을 하거나, 실무의 경우 요구사항이 지속적으로 변경되므로 충분히 변경될 가능성이 농후함.** 
+- ```@ElementCollection``` ```@CollectionTable``` 사용 시 **컬렉션 데이터를 변경할 경우 주인 테이블의 id에 해당되는 컬렉션 테이블의 데이터들이 전부 삭제되고 처음부터 하나씩 삽입되는 N+1 문제가 발생되며**, 이는 컬렉션 테이블을 명확하게 식별하는 식별자가 없어서 발생하는 문제임
   
   
 ### 🔴 3. 결론 및 내 생각 
@@ -346,7 +344,7 @@ private Set<String> containFoodTypes = new HashSet<>();
 
 ## 🔴 QueryDSL의 편의성
 ### 개요
-> Wanna V를 개발하면서 깨달은 QueryDSL 만의 유용한 다른 엔티티들과의 조인하는 방법에 대해 적고자 한다.
+Wanna V를 개발하면서 깨달은 QueryDSL 만의 유용한 다른 엔티티들과의 조인하는 방법에 대해 적고자 한다.
   
 ### MyBatis에서의 조인
 ```xml
@@ -374,7 +372,7 @@ private Set<String> containFoodTypes = new HashSet<>();
   	//생략
   </select>
 ```
-> MyBatis는 SQL Mapper 역할을 **개발자**가 직접 해주면서 직접 SQL을 작성해줘야됨에 따라 조회하려는 모든 테이블을 모두 명시적으로 조인해줘야 조회 가능 
+MyBatis는 SQL Mapper 역할을 **개발자**가 직접 해주면서 직접 SQL을 작성해줘야됨에 따라 조회하려는 모든 테이블을 모두 명시적으로 조인해줘야 조회 가능 
 
   
 ### JPA + QueryDSL에서의 조인
