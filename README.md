@@ -194,7 +194,7 @@
 
 <br>
 
-## ★ 개발 원칙
+## 🔴 개발 원칙
 유연하게 유지보수를 하고, 객체지향적인 코드를 설계하고자 팀 내에서 일관된 개발 원칙을 갖고 개발에 임함
 
 ### 1. 도메인 주도 설계(DDD , Domain Driven Design) : setter 외부로부터 은닉
@@ -226,7 +226,7 @@
 
 <br>
 
-## ★ Trouble Shooting : 객체 생성 시 정적 팩토리 메서드 패턴 사용에 대한 오류
+## 🔴 Trouble Shooting : 객체 생성 시 정적 팩토리 메서드 패턴 사용에 대한 오류
 ### 개요
 - Restaurant 엔티티는 Review , Food , BusinessDay , Likes 등 다수의 엔티티에 대한 연관관계가 존재함에 따라 객체 생성과 동시에 연관관계를 설정해주는 작업이 필요하고, 수많은 필드가 정의되어있음.
 - 즉 이렇게 복잡한 Restaurant 엔티티의 생성자를 public으로 둬서 외부로부터 무분별하게 생성하게 하면 Restaurant를 설계한 개발자의 의도대로 객체를 생성하지 않을 수 있게 됨에 따라 **정적 팩토리 메서드**로만 객체 생성을 하게끔 하여 해당 메서드만 호출하면 개발자가 원하는 스펙대로 객체가 생성되게끔 하고자 하고 DDD 지향적인 설계에 부합하게 됨
@@ -283,7 +283,7 @@ public class Restaurant {
 <br>
 
 
-## ★ Trouble Shooting : @ElementCollection , @CollectionTable의 문제
+## 🔴 Trouble Shooting : @ElementCollection , @CollectionTable의 문제
 ### 1. 개요 : @ElementCollection , @CollectionTable의 도입
 ![](https://velog.velcdn.com/images/coo9292/post/ac5b8c15-d9f9-47fe-99a5-28c65017d0a5/image.png)
 - 식당 검색 시 많은 체크박스 필터링 조건들이 존재하며 체크박스는 여러 개의 데이터가 식당 테이블에 할당해야하므로 식당이 1이고 체크박스가 N인 1:N 관계의 별도의 테이블을 생성해줘야하는데, **JPA에서 1:N 관계의 테이블을 생성하는 데에는 두 가지 방법이 존재함**
@@ -328,14 +328,14 @@ private Set<String> containFoodTypes = new HashSet<>();
 ![](https://velog.velcdn.com/images/coo9292/post/3016872b-b677-4720-8c46-9f68bda62103/image.png)
 > JPA에선 자동으로 컬렉션에 데이터들 조회해와서 할당해주지만, SQL로 직접 테스트할 경우 각 컬렉션 테이블마다 모든 조인 질의를 전부 작성해줘야했고, 일대다 조인 시, 500개 이상의 중복된 데이터가 조회되었음
 
-#### 🔴 ④ 변경 시 N+1 발생 🔴
+#### 🔴 ④ 변경 시 N+1 발생 
 ![](https://velog.velcdn.com/images/coo9292/post/240b7743-1c76-41b6-8800-abc5add1516c/image.png)
 
 > - 현재 요구사항에선 체크박스의 데이터들이 변경될 일이 없어서 괜찮았지만, **추후 리팩토링을 하거나, 실무의 경우 요구사항이 지속적으로 변경되므로 충분히 변경될 가능성이 농후함.** 
 > - ```@ElementCollection``` ```@CollectionTable``` 사용 시 **컬렉션 데이터를 변경할 경우 주인 테이블의 id에 해당되는 컬렉션 테이블의 데이터들이 전부 삭제되고 처음부터 하나씩 삽입되는 N+1 문제가 발생되며**, 이는 컬렉션 테이블을 명확하게 식별하는 식별자가 없어서 발생하는 문제임
   
   
-### 🔴 3. 결론 및 내 생각 🔴
+### 🔴 3. 결론 및 내 생각 
 - 편하려고 시작했지만, JPA의 ```@ElementCollection``` , ```@CollectionTable``` 매핑 원칙에 따라 개발자가 직접 설정해줘야하는 부분이 많았음 , 배보다 배꼽이 더 큰 느낌
 - 또한 자바에서 테스트 시에는 JPA가 자동으로 컬렉션에 값들을 할당해주니 편리할 순 있어도 SQL로 직접 DB에서 테스트 시에는 조인을 명시해야하는 번거로움이 있었고, 중복된 데이터로 인해 쿼리 튜닝도 추가적으로 필요
 - 해당 프로젝트에선 어려움을 겪으면서도 잘 구현해냈지만, 실무 상황이라 가정하였을 때 요구사항이 바뀌어서 데이터를 변경해야한다면, 결국 N+1 문제가 필연적으로 발생함에 따라 컬렉션 필드들을 전부 제거하고, 새로 엔티티를 생성해야함
@@ -344,7 +344,7 @@ private Set<String> containFoodTypes = new HashSet<>();
 
 <br>
 
-## ★ QueryDSL의 편의성
+## 🔴 QueryDSL의 편의성
 ### 개요
 > Wanna V를 개발하면서 깨달은 QueryDSL 만의 유용한 다른 엔티티들과의 조인하는 방법에 대해 적고자 한다.
   
@@ -483,7 +483,7 @@ public List<Restaurant> findAll(){
 
 <br>
 
-## 🔴 회고 🔴
+## 🔴 회고 
   
 ### 기획 및 협업
 - 개인으로 프로젝트를 진행할 때는 체계적인 절차 없이 산출물 관리에도 소홀하여 오직 구현에만 급급하여 빨리 완성물을 내야한다는 생각에만 사로잡힌 결과, 오히려 구현하는 데 시간이 더 오래걸렸습니다.
