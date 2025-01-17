@@ -12,7 +12,7 @@
 
 ### 2. Blue Zone 분석
 ![](https://velog.velcdn.com/images/coo9292/post/d30033f0-e705-40b7-9136-3b97a16d9483/image.svg)
-건강과 직결되는 장수와 관련해서 조사한 결과 세계 5대 장수지역이라고 불리는 <span style="color:darkblue"**Blue Zone**</span의 특징이 채식 위주의 식단을 한다는 사실을 알아냈고, 채식을 장려하기 위해 **비건 서비스**을 만들고자 다짐하였음
+건강과 직결되는 장수와 관련해서 조사한 결과 세계 5대 장수지역이라고 불리는 <span style="color:darkblue">**Blue Zone**</span>의 특징이 채식 위주의 식단을 한다는 사실을 알아냈고, 채식을 장려하기 위해 **비건 서비스**을 만들고자 다짐하였음
 
 
 
