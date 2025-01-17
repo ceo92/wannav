@@ -313,10 +313,12 @@ private Set<String> containFoodTypes = new HashSet<>();
 ### 2. 문제
 #### ① JPA가 인식하는 테이블의 스키마와 일치하는 형식으로 매핑해줘야함, 스키마가 조금이라도 다르면 JPA가 테이블을 찾지 못하여 ```SQLGrammarException``` 발생
 <img src="https://velog.velcdn.com/images/coo9292/post/eb5efb27-5bb0-4f9c-a6ff-6b42ab021afe/image.png" style="width:30rem">
+
 복합 키 , 칼럼이름 및 타입 전부 일치하게 매핑해줘야됨 , 엔티티를 테이블로 매핑하는 것은 많이 해봐서 무리가 없었지만, 컬렉션 변수를 처음 테이블로 매핑하다보니 어려움이 있었음
 
 #### ② 컬렉션 선언 시 List가 아닌 Set 선언 
 <img src="https://velog.velcdn.com/images/coo9292/post/b08f4a1f-d0eb-464f-a1ee-82796bdf4eb4/image.png" style="margin-bottom:0.1rem">
+
 컬렉션 타입 선언 시 주로 사용하던 ```List```가 아닌 ```Set```을 사용해야됨 , 복합 키 특성 상 컬렉션에 삽입되는 각 데이터들 간에 중복이 되면 안되므로 Set으로 선언해야됨(제네릭이 String , Integer, Double와 같은 일반타입 기준)
 
 #### ③ SQL 테스트 시 명시적인 조인을 해줘야하고, 중복된 데이터가 발생함
