@@ -1,4 +1,4 @@
-# Final Project 사용자 페이지 Backend API
+# Wanna V : 비건 식당 예약 및 리뷰 서비스 플랫폼
 
 
 
