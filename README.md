@@ -1,7 +1,7 @@
 # Wanna V : 비건 식당 예약 및 리뷰 서비스 플랫폼
 
 # 들어가기 전: 시연 영상
-!youtube[EcwlBnP6Ajs]
+<iframe width="1239" height="712" src="https://www.youtube.com/embed/EcwlBnP6Ajs" title="비건 식당 예약 및 리뷰 플랫폼 이경민 기능 영상" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 <br>
 
