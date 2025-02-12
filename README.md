@@ -5,6 +5,11 @@
 
 
 [![비건 식당 리뷰 및 예약 서비스](https://youtu.be/EcwlBnP6Ajs)]
+
+<iframe width="1239" height="712" src="https://www.youtube.com/embed/EcwlBnP6Ajs" title="비건 식당 예약 및 리뷰 플랫폼 이경민 기능 영상" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+https://youtu.be/EcwlBnP6Ajs
+
 <br>
 
 # 1. 개요
