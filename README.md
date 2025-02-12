@@ -2,7 +2,8 @@
 
 # 들어가기 전: 시연 영상
 
-[![Video Label](https://github.com/user-attachments/assets/18a14456-1234-438c-9e28-f42c1e2ec410)](https://youtu.be/EcwlBnP6Ajs)
+[![Video Label](https://github.com/user-attachments/assets/8bb1f87f-4e38-4aa3-a6ff-1e2980bbdf71)](https://youtu.be/EcwlBnP6Ajs)
+
 
 <br>
 
