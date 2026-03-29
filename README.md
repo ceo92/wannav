@@ -2,6 +2,7 @@
 <p align="center">
 <img width="499" height="433" alt="image" src="https://github.com/user-attachments/assets/6f29fc64-d80c-4673-9ee7-8ae7eaa401b0" />
 </p>
+
 # 들어가기 전: 시연 영상
 
 [![Video Label](https://github.com/user-attachments/assets/8bb1f87f-4e38-4aa3-a6ff-1e2980bbdf71)](https://youtu.be/EcwlBnP6Ajs)
