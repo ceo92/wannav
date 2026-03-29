@@ -329,7 +329,8 @@ public class Restaurant {
 - ```@CollectionTable``` : 별도의 컬렉션용 테이블의 테이블명 및 조인 칼럼명 등을 지정할 수 있는 어노테이션
 - 즉 ```@ElementCollection``` , ```@CollectionTable```은 컬렉션 매핑 시 같이 쓰임
 
-<img width="827" height="408" alt="image" src="https://github.com/user-attachments/assets/62cf229d-abbe-4cf5-a98e-3d2e891f0b4d" />
+ ![](https://velog.velcdn.com/images/coo9292/post/87832322-96af-4777-bd7a-eee7f4c24922/image.png)
+
 ```java
 @ElementCollection
 @CollectionTable(name = "CONTAIN_FOOD_TYPE" , joinColumns = @JoinColumn(name = "RESTAURANT_ID"))
