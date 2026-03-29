@@ -480,7 +480,7 @@ public List<Restaurant> findAll(){
 ### ✨ Feat (Feature)
 - **설명**: 새로운 기능을 추가하는 커밋
 - **예시**:`✨ Feat: add user login functionality`
-ㅇㅇㅇㅇ
+
 ### 🐛 Fix (Bug Fix)
 - **설명**: 버그를 수정하는 커밋
 - **예시**:`🐛 Fix: correct calculation error in tax module`
