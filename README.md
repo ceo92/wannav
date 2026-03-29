@@ -1,5 +1,5 @@
 # Wanna V : 비건 B2C 플랫폼(비건 식당 예약 및 리뷰 서비스 플랫폼)
-<img width="499" height="433" alt="image" src="https://github.com/user-attachments/assets/b81038b5-7654-4acd-816f-47d4683bf254" />
+![](https://velog.velcdn.com/images/coo9292/post/e6d2972d-6d4f-46a4-95a0-65538db1748d/image.png)
 
 # 들어가기 전: 시연 영상
 
